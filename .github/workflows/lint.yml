@@ -1,4 +1,4 @@
-name: Ruby
+name: Lint
 
 on:
   push:
@@ -11,14 +11,9 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  rubocop:
+    name: RuboCop
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
-    strategy:
-      matrix:
-        ruby:
-          - '3.3.5'
-
     steps:
       - uses: actions/checkout@v6
         with:
@@ -26,7 +21,6 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: '3.3.5'
           bundler-cache: true
-      - name: Run the default task
-        run: bundle exec rspec
+      - run: bundle exec rubocop
