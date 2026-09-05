@@ -58,12 +58,6 @@ Add the next release to [CHANGELOG.md](CHANGELOG.md).
 ```
 ### 0.1.1 (Next)
 
-#### Features
-
-* Your contribution here.
-
-#### Fixes
-
 * Your contribution here.
 ```
 
