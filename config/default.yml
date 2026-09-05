@@ -20,3 +20,8 @@ ExceptionMessages/Punctuation:
     - period
   VersionAdded: '0.1'
   VersionChanged: '0.2'
+
+ExceptionMessages/RedundantExceptionName:
+  Description: 'Checks that raised exception messages do not repeat the exception class name.'
+  Enabled: true
+  VersionAdded: '0.2'

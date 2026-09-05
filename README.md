@@ -84,6 +84,18 @@ raise ArgumentError, "block is required."
 
 Both cops support autocorrection (`rubocop -A`).
 
+### ExceptionMessages/RedundantExceptionName
+
+Checks that raised exception messages do not redundantly repeat the exception class name, since Ruby already prints the class name ahead of the message in a backtrace.
+
+```ruby
+# bad
+raise ArgumentError, "ArgumentError: block is required"
+
+# good
+raise ArgumentError, "block is required"
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
