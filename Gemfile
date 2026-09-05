@@ -10,4 +10,9 @@ gem 'rake', '~> 13.0'
 
 gem 'rspec', '~> 3.0'
 
-gem 'rubocop', '~> 1.21'
+gem 'rubocop', '~> 1.72'
+
+group :development, :test do
+  gem 'danger', require: false
+  gem 'danger-changelog', require: false
+end
