@@ -25,3 +25,19 @@ ExceptionMessages/RedundantExceptionName:
   Description: 'Checks that raised exception messages do not repeat the exception class name.'
   Enabled: true
   VersionAdded: '0.2'
+
+ExceptionMessages/QuoteStyle:
+  Description: 'Checks that interpolated values in raised exception messages are consistently quoted.'
+  Enabled: true
+  EnforcedStyle: backticks
+  SupportedStyles:
+    - backticks
+    - single_quotes
+    - double_quotes
+    - square_brackets
+    - parentheses
+    - curly_braces
+    - custom
+  Prefix: ~
+  Suffix: ~
+  VersionAdded: '0.2'

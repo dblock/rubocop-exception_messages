@@ -1,9 +1,10 @@
-### 0.1.1 (Next)
+### 0.2.0 (Next)
 
 #### Features
 
 * Add `EnforcedStyle` support to `ExceptionMessages/Casing` (`lowercase`/`uppercase`) and `ExceptionMessages/Punctuation` (`no_period`/`period`) to allow the opposite convention - [@dblock](https://github.com/dblock).
-* Add `ExceptionMessages/RedundantExceptionName` cop that flags exception messages redundantly repeating the exception class name - [@dblock](https://github.com/dblock).
+* [#7](https://github.com/dblock/rubocop-exception_messages/pull/7): Add `ExceptionMessages/RedundantExceptionName` cop that flags exception messages redundantly repeating the exception class name - [@dblock](https://github.com/dblock).
+* [#8](https://github.com/dblock/rubocop-exception_messages/pull/8): Add `ExceptionMessages/QuoteStyle` cop that checks consistent quoting of interpolated values in exception messages - [@dblock](https://github.com/dblock).
 
 #### Fixes
 
