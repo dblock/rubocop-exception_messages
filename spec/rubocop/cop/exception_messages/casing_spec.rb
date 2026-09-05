@@ -97,4 +97,42 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Casing, :config do
       RUBY
     end
   end
+
+  context 'with a %() literal message' do
+    it 'registers an offense for a capitalized message' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, %(Block is required)
+                             ^^^^^^^^^^^^^^^^^^^^ Exception messages should start with a lowercase letter.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, %(block is required)
+      RUBY
+    end
+
+    it 'does not register an offense for a lowercase message' do
+      expect_no_offenses(<<~'RUBY')
+        raise ArgumentError, %(block is required)
+      RUBY
+    end
+  end
+
+  context 'with a heredoc message' do
+    it 'registers an offense for a capitalized message' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+                             ^^^^^^ Exception messages should start with a lowercase letter.
+          Block is required
+        MSG
+      RUBY
+    end
+
+    it 'does not register an offense for a lowercase message' do
+      expect_no_offenses(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          block is required
+        MSG
+      RUBY
+    end
+  end
 end

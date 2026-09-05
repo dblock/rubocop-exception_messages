@@ -32,6 +32,32 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::QuoteStyle, :config do
         raise ArgumentError
       RUBY
     end
+
+    it 'registers an offense for a %() literal message' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, %(unknown type: #{type})
+                                             ^^^^^^^ Interpolated values in exception messages should be wrapped in backticks.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, %(unknown type: `#{type}`)
+      RUBY
+    end
+
+    it 'registers an offense for a heredoc message' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          unknown type: #{type}
+                        ^^^^^^^ Interpolated values in exception messages should be wrapped in backticks.
+        MSG
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          unknown type: `#{type}`
+        MSG
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle: single_quotes' do
@@ -72,6 +98,21 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::QuoteStyle, :config do
     it 'does not register an offense for a double-quote-quoted interpolated value' do
       expect_no_offenses(<<~'RUBY')
         raise ArgumentError, "unknown type: \"#{type}\""
+      RUBY
+    end
+
+    it 'does not escape double quotes when correcting a heredoc message' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          unknown type: #{type}
+                        ^^^^^^^ Interpolated values in exception messages should be wrapped in double quotes.
+        MSG
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          unknown type: "#{type}"
+        MSG
       RUBY
     end
   end

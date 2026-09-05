@@ -45,4 +45,34 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::RedundantExceptionName, :config 
       raise ArgumentError, "#{ArgumentError} says no"
     RUBY
   end
+
+  it 'registers an offense for a %() literal message' do
+    expect_offense(<<~'RUBY')
+      raise ArgumentError, %(ArgumentError: block is required)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Exception messages should not repeat the exception class name.
+    RUBY
+  end
+
+  it 'does not register an offense for a %() literal message without the class name' do
+    expect_no_offenses(<<~'RUBY')
+      raise ArgumentError, %(block is required)
+    RUBY
+  end
+
+  it 'registers an offense for a heredoc message' do
+    expect_offense(<<~'RUBY')
+      raise ArgumentError, <<~MSG
+                           ^^^^^^ Exception messages should not repeat the exception class name.
+        ArgumentError: block is required
+      MSG
+    RUBY
+  end
+
+  it 'does not register an offense for a heredoc message without the class name' do
+    expect_no_offenses(<<~'RUBY')
+      raise ArgumentError, <<~MSG
+        block is required
+      MSG
+    RUBY
+  end
 end

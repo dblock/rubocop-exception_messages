@@ -1,13 +1,9 @@
 ### 0.2.0 (Next)
 
-#### Features
-
 * [#6](https://github.com/dblock/rubocop-exception_messages/pull/6): Add `EnforcedStyle` support to `ExceptionMessages/Casing` (`lowercase`/`uppercase`) and `ExceptionMessages/Punctuation` (`no_period`/`period`) to allow the opposite convention - [@dblock](https://github.com/dblock).
 * [#7](https://github.com/dblock/rubocop-exception_messages/pull/7): Add `ExceptionMessages/RedundantExceptionName` cop that flags exception messages redundantly repeating the exception class name - [@dblock](https://github.com/dblock).
 * [#8](https://github.com/dblock/rubocop-exception_messages/pull/8): Add `ExceptionMessages/QuoteStyle` cop that checks consistent quoting of interpolated values in exception messages - [@dblock](https://github.com/dblock).
-
-#### Fixes
-
+* [#16](https://github.com/dblock/rubocop-exception_messages/pull/16): Fix `ExceptionMessages/Punctuation` not detecting a trailing period in heredoc messages, and an infinite autocorrection loop when it did; fix `ExceptionMessages/QuoteStyle` raising an error when autocorrecting a heredoc message - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.1.0 (2026/09/05)

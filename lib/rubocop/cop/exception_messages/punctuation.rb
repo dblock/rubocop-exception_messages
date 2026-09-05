@@ -45,7 +45,7 @@ module RuboCop
         private
 
         def check_segment(message_node, segment)
-          content = segment.value
+          content = segment.value.chomp("\n")
           return if content.end_with?('..') # ellipsis-style, not a sentence-ending period
 
           if style == :no_period
@@ -60,7 +60,7 @@ module RuboCop
 
           add_offense(message_node, message: MSG_NO_PERIOD) do |corrector|
             corrected = content.sub(/\.\z/, '')
-            corrector.replace(segment.loc.expression, segment.source.sub(content, corrected))
+            replace_content(corrector, segment, content, corrected)
           end
         end
 
@@ -69,8 +69,13 @@ module RuboCop
 
           add_offense(message_node, message: MSG_PERIOD) do |corrector|
             corrected = "#{content}."
-            corrector.replace(segment.loc.expression, segment.source.sub(content, corrected))
+            replace_content(corrector, segment, content, corrected)
           end
+        end
+
+        def replace_content(corrector, segment, content, corrected)
+          range = segment.loc.respond_to?(:heredoc_body) ? segment.loc.heredoc_body : segment.loc.expression
+          corrector.replace(range, range.source.sub(content, corrected))
         end
 
         def last_string_segment(message_node)

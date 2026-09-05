@@ -73,6 +73,8 @@ module RuboCop
         end
 
         def escape_for_literal(message_node, open_quote, close_quote)
+          return [open_quote, close_quote] unless message_node.loc.respond_to?(:begin) && message_node.loc.begin
+
           outer_quote = message_node.loc.begin.source
           return [open_quote, close_quote] unless outer_quote == open_quote || outer_quote == close_quote
 
