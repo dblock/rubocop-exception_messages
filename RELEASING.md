@@ -17,7 +17,7 @@ Double-check that the [last build succeeded](https://github.com/dblock/rubocop-e
 Change "Next" in [CHANGELOG.md](CHANGELOG.md) to the new version.
 
 ```
-### 0.1.0 (2026/1/1)
+### 0.1.0 (2026/01/01)
 ```
 
 Remove the line with "* Your contribution here.", since there will be no more contributions to this release.
