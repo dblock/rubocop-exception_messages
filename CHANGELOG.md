@@ -1,3 +1,7 @@
+### 0.3.0 (Next)
+
+* Your contribution here.
+
 ### 0.2.0 (2026/09/05)
 
 * [#6](https://github.com/dblock/rubocop-exception_messages/pull/6): Add `EnforcedStyle` support to `ExceptionMessages/Casing` (`lowercase`/`uppercase`) and `ExceptionMessages/Punctuation` (`no_period`/`period`) to allow the opposite convention - [@dblock](https://github.com/dblock).
