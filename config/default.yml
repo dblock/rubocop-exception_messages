@@ -2,11 +2,21 @@ ExceptionMessages:
   Enabled: true
 
 ExceptionMessages/Casing:
-  Description: 'Checks that raised exception messages start with a lowercase letter.'
+  Description: 'Checks the capitalization of raised exception messages.'
   Enabled: true
+  EnforcedStyle: lowercase
+  SupportedStyles:
+    - lowercase
+    - uppercase
   VersionAdded: '0.1'
+  VersionChanged: '0.2'
 
 ExceptionMessages/Punctuation:
-  Description: 'Checks that raised exception messages do not end with a period.'
+  Description: 'Checks the trailing punctuation of raised exception messages.'
   Enabled: true
+  EnforcedStyle: no_period
+  SupportedStyles:
+    - no_period
+    - period
   VersionAdded: '0.1'
+  VersionChanged: '0.2'

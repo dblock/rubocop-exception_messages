@@ -3,11 +3,15 @@
 module RuboCop
   module Cop
     module ExceptionMessages
-      # Checks that raised exception messages do not end with a period,
-      # consistent with Ruby's own core and standard library exceptions
-      # (e.g. `ArgumentError: wrong number of arguments`).
+      # Checks the trailing punctuation of raised exception messages. By
+      # default, disallows a trailing period, consistent with Ruby's own
+      # core and standard library exceptions (e.g. `ArgumentError: wrong
+      # number of arguments`). Configure `EnforcedStyle: period` to require
+      # the opposite convention instead. A literal ellipsis (`"..."`) is
+      # never considered an offense, since it's stylistic rather than a
+      # sentence-ending period.
       #
-      # @example
+      # @example EnforcedStyle: no_period (default)
       #   # bad
       #   raise ArgumentError, "block is required."
       #   raise ArgumentError.new("block is required.")
@@ -15,11 +19,22 @@ module RuboCop
       #   # good
       #   raise ArgumentError, "block is required"
       #   raise ArgumentError.new("block is required")
+      #
+      # @example EnforcedStyle: period
+      #   # bad
+      #   raise ArgumentError, "block is required"
+      #   raise ArgumentError.new("block is required")
+      #
+      #   # good
+      #   raise ArgumentError, "block is required."
+      #   raise ArgumentError.new("block is required.")
       class Punctuation < Base
+        include ConfigurableEnforcedStyle
         include MessageNode
         extend AutoCorrector
 
-        MSG = 'Exception messages should not end with a period.'
+        MSG_NO_PERIOD = 'Exception messages should not end with a period.'
+        MSG_PERIOD = 'Exception messages should end with a period.'
 
         def on_send(node)
           message_node = raise_message_node(node)
@@ -35,11 +50,29 @@ module RuboCop
 
         def check_segment(message_node, segment)
           content = segment.value
-          return unless content.end_with?('.')
           return if content.end_with?('..') # ellipsis-style, not a sentence-ending period
 
-          add_offense(message_node) do |corrector|
+          if style == :no_period
+            check_no_period(message_node, segment, content)
+          else
+            check_period(message_node, segment, content)
+          end
+        end
+
+        def check_no_period(message_node, segment, content)
+          return unless content.end_with?('.')
+
+          add_offense(message_node, message: MSG_NO_PERIOD) do |corrector|
             corrected = content.sub(/\.\z/, '')
+            corrector.replace(segment.loc.expression, segment.source.sub(content, corrected))
+          end
+        end
+
+        def check_period(message_node, segment, content)
+          return if content.empty? || content.end_with?('.')
+
+          add_offense(message_node, message: MSG_PERIOD) do |corrector|
+            corrected = "#{content}."
             corrector.replace(segment.loc.expression, segment.source.sub(content, corrected))
           end
         end

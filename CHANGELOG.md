@@ -2,7 +2,7 @@
 
 #### Features
 
-* Your contribution here.
+* Add `EnforcedStyle` support to `ExceptionMessages/Casing` (`lowercase`/`uppercase`) and `ExceptionMessages/Punctuation` (`no_period`/`period`) to allow the opposite convention - [@dblock](https://github.com/dblock).
 
 #### Fixes
 
