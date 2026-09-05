@@ -21,7 +21,7 @@ end
 Then require it in your `.rubocop.yml`:
 
 ```yaml
-require:
+plugins:
   - rubocop-exception_messages
 ```
 

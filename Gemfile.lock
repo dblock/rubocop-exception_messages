@@ -2,7 +2,8 @@ PATH
   remote: .
   specs:
     rubocop-exception_messages (0.1.0)
-      rubocop (~> 1.50)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72)
 
 GEM
   remote: https://rubygems.org/
