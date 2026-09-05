@@ -1,6 +1,6 @@
 # rubocop-exception_messages
 
-[![Ruby](https://github.com/dblock/rubocop-exception_messages/actions/workflows/main.yml/badge.svg)](https://github.com/dblock/rubocop-exception_messages/actions/workflows/main.yml)
+[![Ruby](https://github.com/dblock/rubocop-exception_messages/actions/workflows/test.yml/badge.svg)](https://github.com/dblock/rubocop-exception_messages/actions/workflows/test.yml)
 
 RuboCop cops that standardize the style of raised exception messages, consistent with Ruby's own core and standard library exceptions (e.g. `TypeError: no implicit conversion from nil to integer`, `ArgumentError: wrong number of arguments`).
 
