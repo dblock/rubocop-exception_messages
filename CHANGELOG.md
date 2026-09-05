@@ -12,8 +12,6 @@
 
 ### 0.1.0 (2026/09/05)
 
-#### Features
-
 * Initial release with `ExceptionMessages/Casing` and `ExceptionMessages/Punctuation` cops - [@dblock](https://github.com/dblock).
 * Add Danger CI check that enforces a CHANGELOG entry on every pull request - [@dblock](https://github.com/dblock).
 * Add RELEASING.md - [@dblock](https://github.com/dblock).
