@@ -12,20 +12,16 @@ module RuboCop
       # @example EnforcedStyle: lowercase (default)
       #   # bad
       #   raise ArgumentError, "Block is required"
-      #   raise ArgumentError.new("Block is required")
       #
       #   # good
       #   raise ArgumentError, "block is required"
-      #   raise ArgumentError.new("block is required")
       #
       # @example EnforcedStyle: uppercase
       #   # bad
       #   raise ArgumentError, "block is required"
-      #   raise ArgumentError.new("block is required")
       #
       #   # good
       #   raise ArgumentError, "Block is required"
-      #   raise ArgumentError.new("Block is required")
       class Casing < Base
         include ConfigurableEnforcedStyle
         include MessageNode
