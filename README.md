@@ -35,11 +35,9 @@ Checks the capitalization of raised exception messages. Defaults to `EnforcedSty
 ```ruby
 # bad
 raise ArgumentError, "Block is required"
-raise ArgumentError.new("Block is required")
 
 # good
 raise ArgumentError, "block is required"
-raise ArgumentError.new("block is required")
 ```
 
 Configure `EnforcedStyle: uppercase` to require the opposite convention instead.
@@ -64,11 +62,9 @@ Checks the trailing punctuation of raised exception messages. Defaults to `Enfor
 ```ruby
 # bad
 raise ArgumentError, "block is required."
-raise ArgumentError.new("block is required.")
 
 # good
 raise ArgumentError, "block is required"
-raise ArgumentError.new("block is required")
 ```
 
 Configure `EnforcedStyle: period` to require a trailing period instead.
