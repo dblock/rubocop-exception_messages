@@ -30,7 +30,7 @@ plugins:
 
 ### ExceptionMessages/Casing
 
-Checks that raised exception messages start with a lowercase letter.
+Checks the capitalization of raised exception messages. Defaults to `EnforcedStyle: lowercase`.
 
 ```ruby
 # bad
@@ -42,9 +42,24 @@ raise ArgumentError, "block is required"
 raise ArgumentError.new("block is required")
 ```
 
+Configure `EnforcedStyle: uppercase` to require the opposite convention instead.
+
+```yaml
+ExceptionMessages/Casing:
+  EnforcedStyle: uppercase
+```
+
+```ruby
+# bad
+raise ArgumentError, "block is required"
+
+# good
+raise ArgumentError, "Block is required"
+```
+
 ### ExceptionMessages/Punctuation
 
-Checks that raised exception messages do not end with a period.
+Checks the trailing punctuation of raised exception messages. Defaults to `EnforcedStyle: no_period`. A literal ellipsis (`"..."`) is never considered an offense.
 
 ```ruby
 # bad
@@ -54,6 +69,21 @@ raise ArgumentError.new("block is required.")
 # good
 raise ArgumentError, "block is required"
 raise ArgumentError.new("block is required")
+```
+
+Configure `EnforcedStyle: period` to require a trailing period instead.
+
+```yaml
+ExceptionMessages/Punctuation:
+  EnforcedStyle: period
+```
+
+```ruby
+# bad
+raise ArgumentError, "block is required"
+
+# good
+raise ArgumentError, "block is required."
 ```
 
 Both cops support autocorrection (`rubocop -A`).
