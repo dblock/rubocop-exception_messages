@@ -1,0 +1,9 @@
+ExceptionMessages/Casing:
+  Description: "Checks that raised exception messages start with a lowercase letter."
+  Enabled: true
+  VersionAdded: "0.1"
+
+ExceptionMessages/Punctuation:
+  Description: "Checks that raised exception messages do not end with a period."
+  Enabled: true
+  VersionAdded: "0.1"

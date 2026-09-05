@@ -1,0 +1,17 @@
+AllCops:
+  TargetRubyVersion: 3.2
+
+Naming/FileName:
+  Exclude:
+    - "lib/rubocop-exception_messages.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
+    - "*.gemspec"
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
