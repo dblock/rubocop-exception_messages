@@ -14,20 +14,16 @@ module RuboCop
       # @example EnforcedStyle: no_period (default)
       #   # bad
       #   raise ArgumentError, "block is required."
-      #   raise ArgumentError.new("block is required.")
       #
       #   # good
       #   raise ArgumentError, "block is required"
-      #   raise ArgumentError.new("block is required")
       #
       # @example EnforcedStyle: period
       #   # bad
       #   raise ArgumentError, "block is required"
-      #   raise ArgumentError.new("block is required")
       #
       #   # good
       #   raise ArgumentError, "block is required."
-      #   raise ArgumentError.new("block is required.")
       class Punctuation < Base
         include ConfigurableEnforcedStyle
         include MessageNode
