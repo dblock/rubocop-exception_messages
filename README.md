@@ -96,6 +96,59 @@ raise ArgumentError, "ArgumentError: block is required"
 raise ArgumentError, "block is required"
 ```
 
+### ExceptionMessages/QuoteStyle
+
+Checks that interpolated values in raised exception messages are consistently quoted, making it easier to spot where a dynamic value begins and ends in a rendered message. Defaults to `EnforcedStyle: backticks`.
+
+```ruby
+# bad
+raise ArgumentError, "unknown type: #{type}"
+
+# good
+raise ArgumentError, "unknown type: `#{type}`"
+```
+
+Configure `EnforcedStyle: single_quotes`, `double_quotes`, `square_brackets`, `parentheses`, or `curly_braces` to require a different wrapping instead.
+
+```yaml
+ExceptionMessages/QuoteStyle:
+  Enabled: true
+  EnforcedStyle: single_quotes
+```
+
+```ruby
+# good
+raise ArgumentError, "unknown type: '#{type}'"
+```
+
+Configure `EnforcedStyle: custom` with `Prefix`/`Suffix` for anything else, including a single-sided marker with no closing character.
+
+```yaml
+ExceptionMessages/QuoteStyle:
+  Enabled: true
+  EnforcedStyle: custom
+  Prefix: '?'
+```
+
+```ruby
+# good
+raise ArgumentError, "unknown type: ?#{type}"
+```
+
+`Prefix`/`Suffix` aren't limited to a single character.
+
+```yaml
+ExceptionMessages/QuoteStyle:
+  Enabled: true
+  EnforcedStyle: custom
+  Prefix: '--'
+```
+
+```ruby
+# good
+raise ArgumentError, "unknown type: --#{type}"
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
