@@ -97,4 +97,48 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Punctuation, :config do
       RUBY
     end
   end
+
+  context 'with a %() literal message' do
+    it 'registers an offense for a trailing period' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, %(block is required.)
+                             ^^^^^^^^^^^^^^^^^^^^^ Exception messages should not end with a period.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, %(block is required)
+      RUBY
+    end
+
+    it 'does not register an offense for no trailing period' do
+      expect_no_offenses(<<~'RUBY')
+        raise ArgumentError, %(block is required)
+      RUBY
+    end
+  end
+
+  context 'with a heredoc message' do
+    it 'registers an offense for a trailing period' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+                             ^^^^^^ Exception messages should not end with a period.
+          block is required.
+        MSG
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          block is required
+        MSG
+      RUBY
+    end
+
+    it 'does not register an offense for no trailing period' do
+      expect_no_offenses(<<~'RUBY')
+        raise ArgumentError, <<~MSG
+          block is required
+        MSG
+      RUBY
+    end
+  end
 end
