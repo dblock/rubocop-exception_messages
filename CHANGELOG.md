@@ -6,6 +6,7 @@
 * Add Danger CI check that enforces a CHANGELOG entry on every pull request - [@dblock](https://github.com/dblock).
 * Add RELEASING.md - [@dblock](https://github.com/dblock).
 * [#2](https://github.com/dblock/rubocop-exception_messages/pull/2): Add test coverage reporting with SimpleCov and Coveralls - [@dblock](https://github.com/dblock).
+* [#3](https://github.com/dblock/rubocop-exception_messages/pull/3): Split RuboCop linting into its own `Lint` CI workflow, separate from `Test` - [@dblock](https://github.com/dblock).
 
 #### Fixes
 
