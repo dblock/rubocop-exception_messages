@@ -3,6 +3,7 @@
 #### Features
 
 * Add `EnforcedStyle` support to `ExceptionMessages/Casing` (`lowercase`/`uppercase`) and `ExceptionMessages/Punctuation` (`no_period`/`period`) to allow the opposite convention - [@dblock](https://github.com/dblock).
+* Add `ExceptionMessages/RedundantExceptionName` cop that flags exception messages redundantly repeating the exception class name - [@dblock](https://github.com/dblock).
 
 #### Fixes
 
