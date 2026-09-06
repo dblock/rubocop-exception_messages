@@ -1,5 +1,6 @@
 ### 0.3.0 (Next)
 
+* [#17](https://github.com/dblock/rubocop-exception_messages/pull/17): Add `EnforcedStyle: none` to `ExceptionMessages/QuoteStyle` to flag and autocorrect interpolated values that are wrapped when none should be - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.2.0 (2026/09/05)

@@ -20,12 +20,20 @@ module RuboCop
       #
       #   # good
       #   raise ArgumentError, "unknown type: ?#{type}"
+      #
+      # @example EnforcedStyle: none
+      #   # bad
+      #   raise ArgumentError, "unknown type: `#{type}`"
+      #
+      #   # good
+      #   raise ArgumentError, "unknown type: #{type}"
       class QuoteStyle < Base
         include ConfigurableEnforcedStyle
         include MessageNode
         extend AutoCorrector
 
         MSG = 'Interpolated values in exception messages should be wrapped in %<style>s.'
+        NO_STYLE_MSG = 'Interpolated values in exception messages should not be wrapped.'
 
         QUOTES = {
           backticks: ['`', '`'],
@@ -35,6 +43,9 @@ module RuboCop
           parentheses: ['(', ')'],
           curly_braces: ['{', '}']
         }.freeze
+
+        ALL_OPENS = QUOTES.values.map(&:first).freeze
+        ALL_CLOSES = QUOTES.values.map(&:last).freeze
 
         def on_send(node)
           message_node = raise_message_node(node)
@@ -50,6 +61,8 @@ module RuboCop
         private
 
         def check_interpolation(message_node, segment)
+          return check_no_wrapping(segment) if style == :none
+
           open_quote, close_quote = quotes_for_style
           return if quoted?(segment, open_quote, close_quote)
 
@@ -58,6 +71,34 @@ module RuboCop
             corrector.insert_before(segment.loc.expression, open_quote)
             corrector.insert_after(segment.loc.expression, close_quote) unless close_quote.empty?
           end
+        end
+
+        def check_no_wrapping(segment)
+          preceding_marker = wrapping_marker(segment.left_sibling, ALL_OPENS, :end_with?)
+          following_marker = wrapping_marker(segment.right_sibling, ALL_CLOSES, :start_with?)
+          return if preceding_marker.nil? && following_marker.nil?
+
+          add_offense(segment, message: NO_STYLE_MSG) do |corrector|
+            remove_marker(corrector, segment.left_sibling, preceding_marker, from_end: true)
+            remove_marker(corrector, segment.right_sibling, following_marker, from_end: false)
+          end
+        end
+
+        def wrapping_marker(node, markers, predicate)
+          return unless node.is_a?(RuboCop::AST::StrNode)
+
+          markers.find { |marker| node.value.public_send(predicate, marker) }
+        end
+
+        def remove_marker(corrector, node, marker, from_end:)
+          return unless marker
+
+          range = if from_end
+                    node.loc.expression.end.adjust(begin_pos: -marker.length)
+                  else
+                    node.loc.expression.begin.adjust(end_pos: marker.length)
+                  end
+          corrector.remove(range)
         end
 
         def quotes_for_style

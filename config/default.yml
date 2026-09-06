@@ -38,6 +38,7 @@ ExceptionMessages/QuoteStyle:
     - parentheses
     - curly_braces
     - custom
+    - none
   Prefix: ~
   Suffix: ~
   VersionAdded: '0.2'
