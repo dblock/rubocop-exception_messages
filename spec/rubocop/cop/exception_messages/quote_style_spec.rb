@@ -252,4 +252,58 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::QuoteStyle, :config do
       RUBY
     end
   end
+
+  context 'with EnforcedStyle: none' do
+    let(:cop_config) { { 'Enabled' => true, 'EnforcedStyle' => 'none' } }
+
+    it 'does not register an offense for an unwrapped interpolated value' do
+      expect_no_offenses(<<~'RUBY')
+        raise ArgumentError, "unknown type: #{type}"
+      RUBY
+    end
+
+    it 'registers an offense for a backtick-wrapped interpolated value' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, "unknown type: `#{type}`"
+                                             ^^^^^^^ Interpolated values in exception messages should not be wrapped.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, "unknown type: #{type}"
+      RUBY
+    end
+
+    it 'registers an offense for a single-quote-wrapped interpolated value' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, "unknown type: '#{type}'"
+                                             ^^^^^^^ Interpolated values in exception messages should not be wrapped.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, "unknown type: #{type}"
+      RUBY
+    end
+
+    it 'registers an offense for a bracket-wrapped interpolated value' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, "unknown type: [#{type}]"
+                                             ^^^^^^^ Interpolated values in exception messages should not be wrapped.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, "unknown type: #{type}"
+      RUBY
+    end
+
+    it 'registers an offense for a one-sided wrapped interpolated value' do
+      expect_offense(<<~'RUBY')
+        raise ArgumentError, "unknown type: `#{type}"
+                                             ^^^^^^^ Interpolated values in exception messages should not be wrapped.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        raise ArgumentError, "unknown type: #{type}"
+      RUBY
+    end
+  end
 end

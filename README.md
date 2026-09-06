@@ -149,6 +149,22 @@ ExceptionMessages/QuoteStyle:
 raise ArgumentError, "unknown type: --#{type}"
 ```
 
+Configure `EnforcedStyle: none` to require interpolated values not be wrapped at all, and flag existing wrapping instead.
+
+```yaml
+ExceptionMessages/QuoteStyle:
+  Enabled: true
+  EnforcedStyle: none
+```
+
+```ruby
+# bad
+raise ArgumentError, "unknown type: `#{type}`"
+
+# good
+raise ArgumentError, "unknown type: #{type}"
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
