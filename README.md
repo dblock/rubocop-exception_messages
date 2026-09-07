@@ -5,6 +5,18 @@
 
 RuboCop cops that standardize the style of raised exception messages, consistent with Ruby's own core and standard library exceptions (e.g. `TypeError: no implicit conversion from nil to integer`, `ArgumentError: wrong number of arguments`).
 
+## Table of Contents
+
+- [Rationale](#rationale)
+- [Installation](#installation)
+- [Cops](#cops)
+  - [ExceptionMessages/Casing](#exceptionmessagescasing)
+  - [ExceptionMessages/Punctuation](#exceptionmessagespunctuation)
+  - [ExceptionMessages/RedundantExceptionName](#exceptionmessagesredundantexceptionname)
+  - [ExceptionMessages/QuoteStyle](#exceptionmessagesquotestyle)
+- [Contributing](#contributing)
+- [Copyright and License](#copyright-and-license)
+
 ## Rationale
 
 Ruby's built-in exceptions never capitalize or punctuate their messages. This reads naturally when Ruby prints the exception class name, a colon, and the message together in a backtrace (`ArgumentError: block is required`, not `ArgumentError: Block is required.`). These cops help keep custom `raise` messages consistent with that convention.
