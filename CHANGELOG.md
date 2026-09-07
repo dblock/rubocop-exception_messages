@@ -3,6 +3,7 @@
 * [#17](https://github.com/dblock/rubocop-exception_messages/pull/17): Add `EnforcedStyle: none` to `ExceptionMessages/QuoteStyle` to flag and autocorrect interpolated values that are wrapped when none should be - [@dblock](https://github.com/dblock).
 * [#19](https://github.com/dblock/rubocop-exception_messages/pull/19): Add `danger-toc` and a Table of Contents to the README - [@dblock](https://github.com/dblock).
 * [#20](https://github.com/dblock/rubocop-exception_messages/pull/20): Add `AGENTS.md` with instructions for AI agents contributing to this repository - [@dblock](https://github.com/dblock).
+* [#15](https://github.com/dblock/rubocop-exception_messages/issues/15): Add `ExceptionMessages/RequireMessage` cop that flags a bare `raise SomeError` with no message, with an `AllowedExceptions` allowlist that defaults to `NotImplementedError` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.2.0 (2026/09/05)

@@ -42,3 +42,10 @@ ExceptionMessages/QuoteStyle:
   Prefix: ~
   Suffix: ~
   VersionAdded: '0.2'
+
+ExceptionMessages/RequireMessage:
+  Description: 'Checks that a raised exception is given a message.'
+  Enabled: true
+  AllowedExceptions:
+    - NotImplementedError
+  VersionAdded: '0.3'
