@@ -14,6 +14,7 @@ RuboCop cops that standardize the style of raised exception messages, consistent
   - [ExceptionMessages/Punctuation](#exceptionmessagespunctuation)
   - [ExceptionMessages/RedundantExceptionName](#exceptionmessagesredundantexceptionname)
   - [ExceptionMessages/QuoteStyle](#exceptionmessagesquotestyle)
+  - [ExceptionMessages/RequireMessage](#exceptionmessagesrequiremessage)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -39,6 +40,8 @@ plugins:
 ```
 
 ## Cops
+
+All cops recognize both `raise Class, "message"` and `raise Class.new("message")` forms. Examples below use the `raise Class, "message"` form for brevity, except for `ExceptionMessages/RequireMessage`, where the choice between the two forms matters to the check itself.
 
 ### ExceptionMessages/Casing
 
@@ -176,6 +179,46 @@ raise ArgumentError, "unknown type: `#{type}`"
 # good
 raise ArgumentError, "unknown type: #{type}"
 ```
+
+### ExceptionMessages/RequireMessage
+
+Checks that a raised exception is given a message, since a bare `raise SomeError` produces a backtrace with nothing but the class name to go on.
+
+```ruby
+# bad
+raise ArgumentError
+raise ArgumentError.new
+
+# good
+raise ArgumentError, "block is required"
+
+# good (bare re-raise)
+raise
+```
+
+`AllowedExceptions` exempts exception classes that don't need a message, and defaults to `NotImplementedError`, since it's conventionally raised bare (e.g. for an abstract method, or a feature unsupported on the current platform).
+
+```ruby
+# good, by default
+raise NotImplementedError
+```
+
+RuboCop configuration doesn't merge arrays, it replaces them, so if you configure your own `AllowedExceptions`, repeat `NotImplementedError` in the list if you still want it exempted.
+
+```yaml
+ExceptionMessages/RequireMessage:
+  Enabled: true
+  AllowedExceptions:
+    - NotImplementedError
+    - MyApp::PluginError
+```
+
+```ruby
+# good
+raise NotImplementedError
+raise MyApp::PluginError
+```
+
 
 ## Contributing
 
