@@ -58,6 +58,8 @@ module RuboCop
           end
         end
 
+        alias on_super on_send
+
         private
 
         def check_interpolation(message_node, segment)

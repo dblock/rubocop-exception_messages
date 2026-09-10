@@ -52,6 +52,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Punctuation, :config do
         raise ArgumentError, "unknown type: #{type}"
       RUBY
     end
+
+    it 'registers an offense for a super message ending with a period' do
+      expect_offense(<<~RUBY)
+        super("block is required.")
+              ^^^^^^^^^^^^^^^^^^^^ Exception messages should not end with a period.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        super("block is required")
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle: period' do

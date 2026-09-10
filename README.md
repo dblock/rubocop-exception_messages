@@ -15,6 +15,7 @@ RuboCop cops that standardize the style of raised exception messages, consistent
   - [ExceptionMessages/RedundantExceptionName](#exceptionmessagesredundantexceptionname)
   - [ExceptionMessages/QuoteStyle](#exceptionmessagesquotestyle)
   - [ExceptionMessages/RequireMessage](#exceptionmessagesrequiremessage)
+  - [ExceptionMessages/NoGenericMessage](#exceptionmessagesnogenericmessage)
 - [Contributing](#contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -217,6 +218,73 @@ ExceptionMessages/RequireMessage:
 # good
 raise NotImplementedError
 raise MyApp::PluginError
+```
+
+### ExceptionMessages/NoGenericMessage
+
+Checks that a raised exception message provides context by staying within configured character and word limits and not matching a generic message. This catches messages like `"invalid"` or `"failed"` by default, as well as messages shorter or longer than the configured limits.
+
+```ruby
+# bad
+raise ArgumentError, "invalid"
+raise StandardError, "error"
+raise RuntimeError, "failed"
+
+# good
+raise ArgumentError, "invalid type: `#{type}`"
+raise StandardError, "error connecting to the database"
+raise RuntimeError, "failed to acquire lock"
+```
+
+`MinimumWords` defaults to `1`. `MinimumLength`, `MaximumLength`, and `MaximumWords` are optional; when configured, messages outside those limits are flagged. `GenericMessages` is a configurable, case-insensitive list of exact messages that are always flagged, even when they meet the length limits. Entries written as `/pattern/flags` are treated as regular expressions.
+
+```yaml
+ExceptionMessages/NoGenericMessage:
+  Enabled: true
+  MaximumLength: 200
+  MinimumWords: 1
+  MaximumWords: 30
+  GenericMessages:
+    - bad
+    - error
+    - failed
+    - invalid
+    - not found
+    - '/^operation (failed|aborted)$/i'
+```
+
+Use `Exceptions` to override the global settings for a particular exception class. Fully qualified names and short names are supported; per-exception values replace the corresponding global setting.
+
+```yaml
+ExceptionMessages/NoGenericMessage:
+  MinimumLength: 1
+  GenericMessages:
+    - bad
+    - error
+  Exceptions:
+    ArgumentError:
+      MinimumLength: 10
+      MaximumLength: 100
+      MinimumWords: 3
+      MaximumWords: 20
+      GenericMessages:
+        - bad argument
+        - '/^invalid argument/i'
+```
+
+```ruby
+# bad
+raise ArgumentError, "nope"
+```
+
+To require more context, increase `MinimumLength`:
+
+```yaml
+ExceptionMessages/NoGenericMessage:
+  MinimumLength: 20
+  MaximumLength: 200
+  MinimumWords: 3
+  MaximumWords: 30
 ```
 
 

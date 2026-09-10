@@ -44,6 +44,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::QuoteStyle, :config do
       RUBY
     end
 
+    it 'registers an offense for an interpolated super message' do
+      expect_offense(<<~'RUBY')
+        super("unknown type: #{type}")
+                             ^^^^^^^ Interpolated values in exception messages should be wrapped in backticks.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        super("unknown type: `#{type}`")
+      RUBY
+    end
+
     it 'registers an offense for a heredoc message' do
       expect_offense(<<~'RUBY')
         raise ArgumentError, <<~MSG

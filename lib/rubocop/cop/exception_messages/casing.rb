@@ -42,6 +42,8 @@ module RuboCop
           register_offense(message_node, first_segment, content)
         end
 
+        alias on_super on_send
+
         private
 
         def register_offense(message_node, segment, content)

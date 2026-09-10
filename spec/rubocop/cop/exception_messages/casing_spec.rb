@@ -58,6 +58,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Casing, :config do
         raise ArgumentError, "unknown type: #{type}"
       RUBY
     end
+
+    it 'registers an offense for a capitalized super message' do
+      expect_offense(<<~RUBY)
+        super("Block is required")
+              ^^^^^^^^^^^^^^^^^^^ Exception messages should start with a lowercase letter.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        super("block is required")
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle: uppercase' do

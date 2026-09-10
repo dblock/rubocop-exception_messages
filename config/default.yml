@@ -49,3 +49,17 @@ ExceptionMessages/RequireMessage:
   AllowedExceptions:
     - NotImplementedError
   VersionAdded: '0.3'
+
+ExceptionMessages/NoGenericMessage:
+  Description: 'Checks that a raised exception message has an appropriate length and is not generic.'
+  Enabled: true
+  MaximumLength: ~
+  MinimumWords: 1
+  MaximumWords: ~
+  GenericMessages:
+    - bad
+    - error
+    - failed
+    - invalid
+  Exceptions: {}
+  VersionAdded: '0.3'

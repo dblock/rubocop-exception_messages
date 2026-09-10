@@ -42,6 +42,8 @@ module RuboCop
           check_segment(message_node, last_segment)
         end
 
+        alias on_super on_send
+
         private
 
         def check_segment(message_node, segment)
