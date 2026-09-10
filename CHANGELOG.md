@@ -4,6 +4,8 @@
 * [#19](https://github.com/dblock/rubocop-exception_messages/pull/19): Add `danger-toc` and a Table of Contents to the README - [@dblock](https://github.com/dblock).
 * [#20](https://github.com/dblock/rubocop-exception_messages/pull/20): Add `AGENTS.md` with instructions for AI agents contributing to this repository - [@dblock](https://github.com/dblock).
 * [#15](https://github.com/dblock/rubocop-exception_messages/issues/15): Add `ExceptionMessages/RequireMessage` cop that flags a bare `raise SomeError` with no message, with an `AllowedExceptions` allowlist that defaults to `NotImplementedError` - [@dblock](https://github.com/dblock).
+* [#14](https://github.com/dblock/rubocop-exception_messages/issues/14): Add `ExceptionMessages/NoGenericMessage` cop with configurable character and word limits (defaulting to one word and no minimum character count), plus per-exception `GenericMessages` exact or regular-expression matching - [@dblock](https://github.com/dblock).
+* [#21](https://github.com/dblock/rubocop-exception_messages/pull/21): Extend exception message extraction to support `fail` and `super` forms, including in `ExceptionMessages/NoGenericMessage` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.2.0 (2026/09/05)
@@ -21,4 +23,3 @@
 * [#2](https://github.com/dblock/rubocop-exception_messages/pull/2): Add test coverage reporting with SimpleCov and Coveralls - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/rubocop-exception_messages/pull/3): Split RuboCop linting into its own `Lint` CI workflow, separate from `Test` - [@dblock](https://github.com/dblock).
 * [#4](https://github.com/dblock/rubocop-exception_messages/pull/4): Test against Ruby 3.2, 3.3, 3.4 and 4.0 in CI - [@dblock](https://github.com/dblock).
-

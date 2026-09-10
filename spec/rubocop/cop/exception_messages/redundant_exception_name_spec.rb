@@ -28,6 +28,12 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::RedundantExceptionName, :config 
     RUBY
   end
 
+  it 'does not register an offense for a super message' do
+    expect_no_offenses(<<~RUBY)
+      super("ArgumentError: block is required")
+    RUBY
+  end
+
   it 'does not register an offense when the exception class name appears mid-message' do
     expect_no_offenses(<<~RUBY)
       raise ArgumentError, "not a valid ArgumentError here"

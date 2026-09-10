@@ -34,6 +34,8 @@ module RuboCop
           add_offense(message_node)
         end
 
+        alias on_super on_send
+
         private
 
         def redundant?(content, exception_name)
