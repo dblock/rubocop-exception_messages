@@ -24,6 +24,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Punctuation, :config do
       RUBY
     end
 
+    it 'registers an offense for a message ending with a period with fail' do
+      expect_offense(<<~RUBY)
+        fail ArgumentError, "block is required."
+                            ^^^^^^^^^^^^^^^^^^^^ Exception messages should not end with a period.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        fail ArgumentError, "block is required"
+      RUBY
+    end
+
     it 'does not register an offense for a message without trailing punctuation' do
       expect_no_offenses(<<~RUBY)
         raise ArgumentError, "block is required"

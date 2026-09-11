@@ -15,6 +15,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::QuoteStyle, :config do
       RUBY
     end
 
+    it 'registers an offense for an interpolated fail message' do
+      expect_offense(<<~'RUBY')
+        fail ArgumentError, "unknown type: #{type}"
+                                           ^^^^^^^ Interpolated values in exception messages should be wrapped in backticks.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        fail ArgumentError, "unknown type: `#{type}`"
+      RUBY
+    end
+
     it 'does not register an offense for a backtick-quoted interpolated value' do
       expect_no_offenses(<<~'RUBY')
         raise ArgumentError, "unknown type: `#{type}`"

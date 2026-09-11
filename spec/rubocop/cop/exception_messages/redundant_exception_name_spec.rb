@@ -15,6 +15,13 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::RedundantExceptionName, :config 
     RUBY
   end
 
+  it 'registers an offense for a message repeating the exception class name with fail' do
+    expect_offense(<<~RUBY)
+      fail ArgumentError, "ArgumentError: block is required"
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Exception messages should not repeat the exception class name.
+    RUBY
+  end
+
   it 'registers an offense for a namespaced exception class' do
     expect_offense(<<~RUBY)
       raise Grape::Exceptions::InvalidVersionerOption, "InvalidVersionerOption: bad option"

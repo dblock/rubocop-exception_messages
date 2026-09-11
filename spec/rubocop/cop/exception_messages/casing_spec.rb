@@ -24,6 +24,17 @@ RSpec.describe RuboCop::Cop::ExceptionMessages::Casing, :config do
       RUBY
     end
 
+    it 'registers an offense for a capitalized message with fail' do
+      expect_offense(<<~RUBY)
+        fail ArgumentError, "Block is required"
+                            ^^^^^^^^^^^^^^^^^^^ Exception messages should start with a lowercase letter.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        fail ArgumentError, "block is required"
+      RUBY
+    end
+
     it 'does not register an offense for a lowercase message' do
       expect_no_offenses(<<~RUBY)
         raise ArgumentError, "block is required"
